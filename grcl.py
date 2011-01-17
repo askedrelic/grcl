@@ -48,10 +48,13 @@ class GRCL(object):
             print "%2s: %s [%s]" % (index, title, author)
             index += 1
 
-    def _displayFeed(self, index):
-    	print index
-        content = util.strip_tags(util.unescape(self.container.items[index-1].content)).encode('utf-8')
+    def _displayEntry(self, index):
+        entry = self.container.items[index-1]
+        content = util.strip_tags(util.unescape(entry.content)).encode('utf-8')
         print content
+
+        #mark entry as read
+        entry.markRead()
 
     def run(self):
         self._displayFeeds()
@@ -63,7 +66,7 @@ class GRCL(object):
             elif opt.find('list') != -1:
                 self._displayFeeds()
             else:
-                self._displayFeed(int(opt))
+                self._displayEntry(int(opt))
 
 if __name__ == '__main__':
     grcl = GRCL(username,password)
