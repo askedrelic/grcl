@@ -5,6 +5,12 @@ def strip_tags(value):
     "Return the given HTML with all tags stripped."
     return re.sub(r'<[^>]*?>', '', value)
 
+def find_urls(text):
+    # Pattern for fully-qualified URLs:
+    url_pattern = re.compile('https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?')
+
+    # build list of all URLs found in standard input
+    return url_pattern.findall(text)
 ##
 # Removes HTML or XML character references and entities from a text string.
 #
